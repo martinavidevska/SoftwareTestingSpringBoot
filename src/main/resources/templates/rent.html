@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Car Rental</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    header {
+      background: #333;
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+    }
+
+    main {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 8px;
+      margin-bottom: 16px;
+      box-sizing: border-box;
+    }
+
+    button {
+      background: #4CAF50;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>Car Rental Service</h1>
+</header>
+
+<main>
+  <section>
+    <h2>Car Information</h2>
+    <!-- Thymeleaf expression to display vehicle information -->
+    <p>Car Model: <strong th:text="${vehicle.model}"></strong></p>
+    <p>Seats: <strong th:text="${vehicle.seats}"></strong></p>
+    <p>Price per day: <strong th:text="${vehicle.dailyPrice}"></strong></p>
+    <p>Vehicle Type: <strong th:text="${vehicleType}"></strong></p>
+  </section>
+
+  <section>
+    <h2>Rental Details</h2>
+    <form method="post" th:action="@{/rent}">
+      <input type="hidden" id="vehicleId" name="licensePlate" th:value="${vehicle.licensePlate}">
+      <label for="pickupLocation">Pickup Location:</label>
+      <select name="pickedFrom" id="pickupLocation" class="form-control">
+        <option
+                th:each="loc : ${locations}"
+                th:value="${loc.getId()}"
+                th:text="${loc.getAddress()}">
+        </option>
+      </select>
+
+      <label for="returnLocation">Return Location:</label>
+      <select type="text" id="returnLocation" name="returnedTo">
+        <option
+                th:each="loc : ${locations}"
+                th:value="${loc.getId()}"
+                th:text="${loc.getAddress()}">
+        </option>
+      </select>
+
+      <label for="startDate">Start Date:</label>
+      <input type="date" id="startDate" name="startRent" required>
+
+      <label for="endDate">End Date:</label>
+      <input type="date" id="endDate" name="endRent">
+    <label for="username" >Username</label>
+      <input type="text" id="username" name="username" value="Your username">
+      <button type="submit">Rent Now</button>
+    </form>
+  </section>
+</main>
+
+</body>
+</html>

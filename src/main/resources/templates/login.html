@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-container {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      width: 400px;
+    }
+
+    .form {
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .logo {
+      text-align: center;
+      color: #3498db;
+      font-size: 24px;
+      margin-top: 10px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .text-danger {
+      color: red;
+    }
+
+    #create-btn {
+      background-color: #2ecc71;
+    }
+
+    .button-icon {
+      margin-left: 5px;
+    }
+
+  </style>
+</head>
+
+<body>
+<div class="container">
+  <div class="login-container">
+    <div class="form">
+      <h1>LOG IN</h1>
+      <hr>
+      <h3 class="logo">
+        <span class="highlight">Macedonian</span>HeritageHub
+      </h3>
+      <form action="/login" method="POST">
+        <label for="email">USERNAME</label>
+        <input  id="email" name="username" placeholder="Email" required>
+
+        <label for="password">PASSWORD</label>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+        <div th:if="${param.error}" th:text="${param.error}" class="text-danger">Invalid something</div>
+        <button id="login-button" type="submit">LOGIN</button>
+      </form>
+      <form action="/register" method="get">
+        <button type="submit" id="create-btn"> Create an account   <i class="fas fa-arrow-right button-icon"></i> </button>
+      </form>
+
+    </div>
+  </div>
+
+  <div class="image" ></div>
+</div>
+</body>
+</html>

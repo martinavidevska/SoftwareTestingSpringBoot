@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:java8="http://www.thymeleaf.org/thymeleaf-extras-java8time">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #fff;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .profile-info {
+      margin-bottom: 20px;
+    }
+
+    .profile-info label {
+      display: block;
+      margin: 10px 0 5px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    .profile-info p {
+      margin: 0;
+      padding: 5px 0;
+    }
+
+    .rentals {
+      margin-top: 20px;
+    }
+
+    .rentals h2 {
+      color: #333;
+    }
+
+    .rental-item {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+  </style>
+  <title>Profile Page</title>
+</head>
+<body>
+
+<div class="container">
+  <h1>Your Profile</h1>
+
+  <div class="profile-info" >
+    <label for="username">Username:</label>
+    <p id=username th:text="${client.username}"></p>
+
+    <label for="email">Email:</label>
+    <p id="email" th:text="${client.email}"></p>
+
+    <label for="phoneNumber">Phone Number:</label>
+    <p id="phoneNumber" th:text="${client.phoneNumber}"></p>
+
+    <label for="driverLicenseNumber">Driver License Number:</label>
+    <p id="driverLicenseNumber" th:text="${client.driverLicenseNumber}"></p>
+
+    <label for="address">Address:</label>
+    <p id="address" th:text="${client.address}"></p>
+  </div>
+
+  <div class="rentals">
+    <h2 >Your Rentals</h2>
+    <form th:each="rent : ${rents}">
+      <div class="rental-item">
+        <p><strong>Car Model:</strong> <span th:text="${rent.getVehicle().getModel()}"></span></p>
+        <p><strong>End Date:</strong> <span th:text="${rent.startRent}"></span></p>
+        <p><strong>End Date:</strong> <span th:text="${rent.endRent}"></span></p>
+        <p><strong>Total Amount:</strong> <span th:text="${rent.getTotalAmount()}"></span></p>
+      </div>
+    </form>
+
+  </div>
+</div>
+
+</body>
+</html>
