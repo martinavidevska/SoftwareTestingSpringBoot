@@ -7,7 +7,7 @@ import java.util.Optional;
 
 public interface ClientService extends UserDetailsService {
 
-    Client register(String username, String password, String email, String phoneNumber, String driverLicenseNumber, String address);
+    Client register(String username, String password, String name, String email, String phoneNumber, String driverLicenseNumber, String address);
     Optional<Client> findByUsername(String username);
 
 }

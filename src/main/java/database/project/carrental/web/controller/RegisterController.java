@@ -35,13 +35,14 @@ public class RegisterController {
     @PostMapping()
     public String register(@RequestParam String username,
                            @RequestParam String email,
+                           @RequestParam String name,
                            @RequestParam String password,
                            @RequestParam String phoneNumber,
                            @RequestParam String driverLicenseNumber,
                            @RequestParam String address){
         try{
             System.out.println("OKS");
-            this.clientService.register(username,password,email,phoneNumber,driverLicenseNumber,address);
+            this.clientService.register(username,password,name,email,phoneNumber,driverLicenseNumber,address);
             return "redirect:/login";
         } catch (InvalidArgumentsException exception) {
             return "redirect:/register?error=" + exception.getMessage();

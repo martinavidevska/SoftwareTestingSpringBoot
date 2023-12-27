@@ -16,6 +16,7 @@ public class Client implements UserDetails {
     @Id
     private String username;
     private String password;
+    private String name;
     private String email;
     private String phoneNumber;
     private String driverLicenseNumber;
@@ -26,9 +27,10 @@ public class Client implements UserDetails {
     private boolean isCredentialsNonExpired =  true;
     private boolean isEnabled = true;
 
-    public Client(String username, String password, String email, String phoneNumber, String driverLicenseNumber, String address, Role role) {
+    public Client(String username, String password, String name,String email, String phoneNumber, String driverLicenseNumber, String address, Role role) {
         this.username = username;
         this.password=password;
+        this.name=name;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.driverLicenseNumber = driverLicenseNumber;

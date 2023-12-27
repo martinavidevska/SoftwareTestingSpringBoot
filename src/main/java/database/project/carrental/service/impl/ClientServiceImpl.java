@@ -24,8 +24,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client register(String name, String password , String email, String phoneNumber, String driverLicenseNumber, String address) {
-        return clientRepository.save(new Client(name, passwordEncoder.encode(password),email,phoneNumber,driverLicenseNumber,address, Role.USER));
+    public Client register(String username, String password , String name,String email, String phoneNumber, String driverLicenseNumber, String address) {
+        return clientRepository.save(new Client(name, passwordEncoder.encode(password),name,email,phoneNumber,driverLicenseNumber,address, Role.USER));
     }
     @Override
     public Optional<Client> findByUsername(String username) {
