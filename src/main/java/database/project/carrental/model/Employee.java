@@ -2,10 +2,12 @@ package database.project.carrental.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.Data;
-
+/*
 @Data
 @Entity
+@Table(name="employee")
 public class Employee {
     @Id
     private String id;
@@ -25,3 +27,4 @@ public class Employee {
     public Employee() {
     }
 }
+*/

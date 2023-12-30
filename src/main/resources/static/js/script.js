@@ -9,6 +9,12 @@ const navbar = document.querySelector("[data-navbar]");
 const navToggleBtn = document.querySelector("[data-nav-toggle-btn]");
 const navbarLinks = document.querySelectorAll("[data-nav-link]");
 
+const vehicleImageElement = document.getElementById('vehicleImage');
+const vehicleImageLink = "${vehicle.getPictureLink()}"; // Replace with your actual method or variable
+
+// Set the image source
+vehicleImageElement.src = vehicleImageLink;
+console.log("Image Link:", vehicleImageLink);
 const navToggleFunc = function () {
     navToggleBtn.classList.toggle("active");
     navbar.classList.toggle("active");

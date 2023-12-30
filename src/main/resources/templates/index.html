@@ -100,30 +100,30 @@
 
                 <div class="hero-banner"></div>
 
-            </div>
 
+            <form action="/vehicles/filter" class="hero-form" metod="get">
 
                     <div class="input-wrapper">
-                        <label for="input-1" class="input-label" ></label>
-
-                        <input type="text" name="car-model" id="input-1" class="input-field"
-                               placeholder="What car are you looking?">
+                        <label for="vehicleModel" class="input-label" >Any specific car that you are looking for?</label>
+                        <input type="text" name="vehicleModel" id="vehicleModel" class="input-field"
+                               placeholder="Model">
                     </div>
 
                     <div class="input-wrapper">
-                        <label for="input-2" class="input-label">Max. monthly payment</label>
+                        <label for="price" class="input-label">Maximal daily price</label>
 
-                        <input type="text" name="monthly-pay" id="input-2" class="input-field" placeholder="Add an amount in $">
+                        <input type="text" name="dailyPrice" id="price" class="input-field" placeholder="Add an amount in denari">
                     </div>
 
                     <div class="input-wrapper">
-                        <label for="input-3" class="input-label">Make Year</label>
-
-                        <input type="text" name="year" id="input-3" class="input-field" placeholder="Add a minimal make year">
+                        <label for="vehicleTypeId" class="input-label">Choose a vehicle type</label>
+                        <select name="vehicleTypeId" id="vehicleTypeId" class="input-field">
+                           <option th:each="type : ${vehicleTypes}" th:value="${type.id}" th:text="${type.description}"></option>
+                        </select>
                     </div>
 
                     <button type="submit" class="btn">Search</button>
-
+            </form>
             </div>
         </section>
 
@@ -150,8 +150,7 @@
 
                             <figure class="card-banner">
                                 <!--add picture-->
-                                <img src="../images/car-1.jpg" alt="Toyota RAV4 2021" loading="lazy" width="440" height="300"
-                                     class="w-100" >
+                                <img th:src="${vehicle.getPictureLink()}" alt="${vehicle.getModel()} ${vehicle.brand} ${vehicle.vehicleTypeId}" loading="lazy" width="0" height="240" class="w-100">
                             </figure>
 
                             <div class="card-content">
@@ -214,10 +213,10 @@
                             </div>
 
                         </div>
-                    </li>
                     </ul>
                 </form>
-
+            </div>
+        </section>
 
         <section class="section get-start">
             <div class="container">
@@ -464,7 +463,9 @@
         <!--
           - custom js link
         -->
-        <script src="../js/script.js"></script>
+        <script src="../js/script.js">
+
+        </script>
 
         <!--
           - ionicon link

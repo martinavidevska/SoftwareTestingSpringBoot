@@ -1,24 +1,23 @@
 package database.project.carrental.model;
 
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Data
 @Entity
+@Table(name="car_location")
 public class Location {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Column(name = "id_location")
     private Long id;
-    private String contact;
+    private String name;
     private String address;
 
-    public Location(Long id, String contact, String address) {
+    public Location(Long id, String name, String address) {
         this.id = id;
-        this.contact = contact;
+        this.name = name;
         this.address = address;
     }
 

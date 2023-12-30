@@ -11,21 +11,25 @@ import java.util.List;
 
 @Data
 @Entity
-
+@Table(name="client")
 public class Client implements UserDetails {
     @Id
     private String username;
+
     private String password;
+    @Column(name="name_client")
     private String name;
+    @Column(name="email_client")
     private String email;
+    @Column(name="phone_number")
     private String phoneNumber;
+    @Column(name="driver_license_number")
     private String driverLicenseNumber;
     private String address;
+    @Column(name="role")
+    @Enumerated(EnumType.STRING)
     private Role role;
-    private boolean isAccountNonExpired = true;
-    private boolean isAccountNonLocked = true;
-    private boolean isCredentialsNonExpired =  true;
-    private boolean isEnabled = true;
+
 
     public Client(String username, String password, String name,String email, String phoneNumber, String driverLicenseNumber, String address, Role role) {
         this.username = username;
@@ -50,21 +54,21 @@ public class Client implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return isAccountNonExpired;
+        return true;
     }
 
     @Override
     public boolean isAccountNonLocked() {
-        return isAccountNonLocked;
+        return true;
     }
 
     @Override
     public boolean isCredentialsNonExpired() {
-        return isCredentialsNonExpired;
+        return true;
     }
 
     @Override
     public boolean isEnabled() {
-        return isEnabled;
+        return true;
     }
 }

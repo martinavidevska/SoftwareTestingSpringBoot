@@ -347,6 +347,53 @@ button, a { transition: var(--transition); }
     line-height: 1.8;
     margin-bottom: 30px;
 }
+.input-wrapper {
+    position: relative;
+    margin-bottom: 20px; /* Adjust spacing as needed */
+}
+
+/* Style for the label */
+.input-label {
+    color: #333; /* Label text color */
+    font-size: 14px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+/* Style for the dropdown itself */
+.input-field {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc; /* Border color */
+    border-radius: 4px;
+    appearance: none;
+    -webkit-appearance: none;
+    background-size: 16px; /* Adjust the size of the arrow icon */
+    cursor: pointer;
+}
+
+/* Hover style for the dropdown */
+.input-field:hover {
+    border-color: #555; /* Border color on hover */
+}
+
+/* Focus style for the dropdown */
+.input-field:focus {
+    outline: none;
+    height:30px;
+    box-shadow: 0 0 5px rgba(81, 203, 238, 1); /* Adjust the focus box shadow color */
+}
+
+/* Style for dropdown options */
+.input-field option {
+    background-color: #fff;
+    color: #333;
+}
+
+/* Style for the dropdown arrow icon */
+.input-field::-ms-expand {
+    display: none;
+}
 
 .hero-banner { display: none; }
 
@@ -356,6 +403,12 @@ button, a { transition: var(--transition); }
     box-shadow: var(--shadow-1);
     border-radius: var(--radius-18);
     font-family: var(--ff-nunito);
+}
+.hero-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    margin-left: -100px;
 }
 
 .input-wrapper { padding: 15px 20px; }
@@ -431,7 +484,7 @@ button, a { transition: var(--transition); }
     border-radius: var(--radius-18);
     padding: 10px;
     box-shadow: var(--shadow-1);
-    width: calc(70% - 30px); /* Adjust this as needed */
+    /*width: calc(70% - 30px); *//* Adjust this as needed */
     margin: 0 15px; /* Adjust this as needed */
     box-sizing: border-box;
     flex: 0 0 calc(45% - 30px); /* Adjust flex as needed */
@@ -450,7 +503,7 @@ button, a { transition: var(--transition); }
 }
 
 .featured-car-card .card-banner > img {
-    height: 100%;
+
     object-fit: cover;
 }
 

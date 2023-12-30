@@ -8,10 +8,9 @@ import java.util.Optional;
 
 public interface VehicleService {
    Vehicle findByLicensePlate(String licensePlate);
-    List<Vehicle> findByVehicleType(Long vehicleTypeId);
-    Vehicle findByModel(String model);
-    Vehicle findBySeats(Integer seats);
+
     Vehicle remove(String licensePlate );
-    Vehicle add(String licensePlate, String model, String brand, Integer seats, Double dailyPrice, Integer bags, VehicleType vehicleType);
+    Vehicle add(String licensePlate, String model, String brand, Integer seats, Double dailyPrice, Integer bags, VehicleType vehicleType, String pictureLink);
     List<Vehicle>findAll();
+    List<Vehicle> filter(Long vehicleTypeId, Double dailyPrice, String model);
 }
