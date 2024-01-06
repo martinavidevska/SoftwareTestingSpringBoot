@@ -3,6 +3,7 @@ package database.project.carrental.model;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
@@ -42,14 +43,32 @@ public class Client implements UserDetails {
         this.role=role;
     }
 
+    public Client(String username, String password) {
+        this.username = username;
+        this.password = password;
+        this.name=null;
+        this.email = null;
+        this.phoneNumber = null;
+        this.driverLicenseNumber = null;
+        this.address = null;
+        this.role = Role.ADMIN;
+    }
+
     public Client() {
 
+    }
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(role);
+        return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role));
     }
 
     @Override

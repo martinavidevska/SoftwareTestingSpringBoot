@@ -3,8 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+  <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}">
+
   <style>
-    body {
+    .login {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
@@ -76,7 +78,11 @@
     .text-danger {
       color: red;
     }
-
+    .logo {
+      text-align: center;
+      font-size: 24px;
+      margin-left: 30px;
+    }
     #create-btn {
       background-color: #2ecc71;
     }
@@ -88,18 +94,18 @@
   </style>
 </head>
 
-<body>
+<body class="login">
 <div class="container">
   <div class="login-container">
     <div class="form">
       <h1>LOG IN</h1>
       <hr>
-      <h3 class="logo">
-        <span class="highlight">Macedonian</span>HeritageHub
-      </h3>
+      <a href="index.html" class="logo" >
+        <img src="../images/logo.png" alt="CarXpress logo">
+      </a>
       <form action="/login" method="POST">
         <label for="email">USERNAME</label>
-        <input  id="email" name="username" placeholder="Email" required>
+        <input  id="email" name="username" placeholder="Username" required>
 
         <label for="password">PASSWORD</label>
         <input type="password" id="password" name="password" placeholder="Password" required>
@@ -112,8 +118,6 @@
 
     </div>
   </div>
-
-  <div class="image" ></div>
 </div>
 </body>
 </html>

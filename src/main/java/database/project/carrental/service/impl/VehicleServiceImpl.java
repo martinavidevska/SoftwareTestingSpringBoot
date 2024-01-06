@@ -47,14 +47,16 @@ public class VehicleServiceImpl implements VehicleService {
     @Override
     public List<Vehicle> filter(Long vehicleType, Double dailyPrice, String model) {
 
-        VehicleType vehicleTypeId=this.vehicleTypeRepository.findById(vehicleType).orElseThrow();
-        if(vehicleTypeId!=null && dailyPrice!=null && model!=null) {
+        if(vehicleType!=null && dailyPrice!=null && model!=null) {
+            VehicleType vehicleTypeId=this.vehicleTypeRepository.findById(vehicleType).orElseThrow();
             return this.vehicleRepository.findAllByVehicleTypeAndDailyPriceIsLessThanEqualAndModel(vehicleTypeId,dailyPrice,model);
         }
-        else if(vehicleTypeId!=null && dailyPrice!=null){
+        else if(vehicleType!=null && dailyPrice!=null){
+            VehicleType vehicleTypeId=this.vehicleTypeRepository.findById(vehicleType).orElseThrow();
             return this.vehicleRepository.findAllByVehicleTypeAndDailyPriceIsLessThanEqual(vehicleTypeId,dailyPrice);
         }
-        else if (vehicleTypeId != null && model != null) {
+        else if (vehicleType != null && model != null) {
+            VehicleType vehicleTypeId=this.vehicleTypeRepository.findById(vehicleType).orElseThrow();
             return this.vehicleRepository.findAllByModelAndVehicleType(model,vehicleTypeId);
         }
         else if(model!=null && dailyPrice!=null){
@@ -66,11 +68,13 @@ public class VehicleServiceImpl implements VehicleService {
         else if(dailyPrice!=null){
             return this.vehicleRepository.findAllByDailyPriceIsLessThanEqual(dailyPrice);
         }
-        else if(vehicleTypeId!=null){
+        else if(vehicleType!=null){
+            VehicleType vehicleTypeId=this.vehicleTypeRepository.findById(vehicleType).orElseThrow();
             return this.vehicleRepository.findAllByVehicleTypeId(vehicleTypeId);
         }
+        else return this.findAll();
 
-        return this.findAll();
+
     }
 
 }

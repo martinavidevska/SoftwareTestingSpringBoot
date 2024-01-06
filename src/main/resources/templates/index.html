@@ -7,37 +7,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TakeTheJourney - Rent your favourite car</title>
 
-    <!--
-      - favicon
-    -->
     <link rel="shortcut icon" href="../favicon.svg" type="image/svg+xml">
 
-    <!--
-      - custom css link
-    -->
     <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}">
 
-    <!--
-      - google font link
-    -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600&family=Open+Sans&display=swap"
           rel="stylesheet">
+    <style>
+        .featured-car-list {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between; /* Adjust as needed */
+        }
+
+        .featured-car-card {
+            width: 100%;
+            max-width: 400px; /* Set a maximum width for the card */
+            height: 100%; /* Set a fixed height for the card */
+            border: 1px solid #ccc; /* Optional: Add border for better separation */
+            margin-bottom: 20px; /* Adjust as needed */
+        }
+
+        .card-banner img {
+            width: 100%; /* Make the image width 100% of the parent container */
+            height: 100%; /* Make the image height 100% of the parent container */
+            object-fit: cover; /* Maintain aspect ratio and cover the entire container */
+        }
+
+        .card-content {
+            padding: 15px;
+        }
+    </style>
 </head>
 
 <body>
 
-<!--
-  - #HEADER
--->
 
 <header class="header" data-header>
     <div class="container">
 
         <div class="overlay" data-overlay></div>
 
-        <a href="#" class="logo">
+        <a href="/vehicles" class="logo">
             <img src="../images/logo.png" alt="CarXpress logo">
         </a>
 
@@ -45,20 +58,31 @@
             <ul class="navbar-list">
 
                 <li>
-                    <a href="#home" class="navbar-link" data-nav-link>Home</a>
+                    <a href="/vehicles" class="navbar-link" data-nav-link>Home</a>
                 </li>
 
                 <li>
-                    <a href="#featured-car" class="navbar-link" data-nav-link>Explore cars</a>
+                    <a href="/vehicles" class="navbar-link" data-nav-link>Explore cars</a>
                 </li>
-
+             <th:block sec:authorize="hasRole('ROLE_ADMIN')">
                 <li>
-                    <a href="#" class="navbar-link" data-nav-link>About us</a>
+                    <a href="/vehicles/add" class="navbar-link" data-nav-link>Add new vehicle</a>
                 </li>
-
+                </th:block>
+                <li>
+                    <a href="/logout" class="navbar-link" data-nav-link>Logout</a>
+                </li>
                 <li>
                     <a href="/register" class="navbar-link" data-nav-link>Register</a>
                 </li>
+                <form th:action="@{/register/admin}"
+                      th:method="POST">
+                    <button type="submit" >
+                         Register Admin
+                    </button>
+                </form>
+
+
 
             </ul>
         </nav>
@@ -71,11 +95,11 @@
 
                 <span id="aria-label-txt">Explore cars</span>
             </a>
-
+            <th:block sec:authorize="hasRole('USER')" >
             <a th:href="@{/client/info}" class="btn user-btn" aria-label="Profile">
                 <ion-icon name="person-outline"></ion-icon>
             </a>
-
+            </th:block>
             <button class="nav-toggle-btn" data-nav-toggle-btn aria-label="Toggle Menu">
                 <span class="one"></span>
                 <span class="two"></span>
@@ -91,10 +115,10 @@
             <div class="container">
 
                 <div class="hero-content">
-                    <h2 class="h1 hero-title">The easy way to takeover a lease</h2>
+                    <h2 class="h1 hero-title">Just choose a vehicle and come pick it up</h2>
 
                     <p class="hero-text">
-                        Live in New York, New Jerset and Connecticut!
+                        With locations in Skopje, Ohrid and Strumica
                     </p>
                 </div>
 
@@ -157,7 +181,7 @@
 
                                 <div class="card-title-wrapper">
                                     <h3 class="h3 card-title">
-                                        <a href="#" th:text="${vehicle.getModel()}"></a>
+                                        <span th:text="${vehicle.getBrand()} + ' '+ ${vehicle.getModel()}" ></span>
                                     </h3>
 
 
@@ -198,12 +222,12 @@
                                         <strong th:text="${vehicle.getDailyPrice()}">Daily price</strong> / day
                                     </p>
 
-                                    <button class="btn fav-btn" aria-label="Add to favourite list">
+                                    <span class="btn fav-btn" aria-label="Add to favourite list">
                                         <ion-icon name="heart-outline"></ion-icon>
-                                    </button>
+                                    </span>
                                     <td>
-                                        <th:block >
-                                            <a th:href="@{'/vehicles/rent/{id}' (id=${vehicle.getLicensePlate()})}"
+                                        <th:block sec:authorize="hasRole('USER')" >
+                                            <a th:href="@{'/rent/{id}' (id=${vehicle.getLicensePlate()})}"
                                                class="btn btn-sm btn-info edit-product">
                                                 <i class="fas fa-edit"></i> Rent now
                                             </a>
@@ -217,84 +241,6 @@
                 </form>  </ul>
             </div>
         </section>
-
-        <section class="section get-start">
-            <div class="container">
-
-                <h2 class="h2 section-title">Get started with 4 simple steps</h2>
-
-                <ul class="get-start-list">
-
-                    <li>
-                        <div class="get-start-card">
-
-                            <div class="card-icon icon-1">
-                                <ion-icon name="person-add-outline"></ion-icon>
-                            </div>
-
-                            <h3 class="card-title">Create a profile</h3>
-
-                            <p class="card-text">
-                                If you are going to use a passage of Lorem Ipsum, you need to be sure.
-                            </p>
-
-                            <a href="#" class="card-link">Get started</a>
-
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="get-start-card">
-
-                            <div class="card-icon icon-2">
-                                <ion-icon name="car-outline"></ion-icon>
-                            </div>
-
-                            <h3 class="card-title">Tell us what car you want</h3>
-
-                            <p class="card-text">
-                                Various versions have evolved over the years, sometimes by accident, sometimes on purpose
-                            </p>
-
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="get-start-card">
-
-                            <div class="card-icon icon-3">
-                                <ion-icon name="person-outline"></ion-icon>
-                            </div>
-
-                            <h3 class="card-title">Match with seller</h3>
-
-                            <p class="card-text">
-                                It to make a type specimen book. It has survived not only five centuries, but also the leap into
-                                electronic
-                            </p>
-
-                        </div>
-                    </li>
-
-                    <li>
-                        <div class="get-start-card">
-
-                            <div class="card-icon icon-4">
-                                <ion-icon name="card-outline"></ion-icon>
-                            </div>
-
-                            <h3 class="card-title">Make a deal</h3>
-
-
-
-                        </div>
-                    </li>
-
-                </ul>
-
-            </div>
-        </section>
-
 
 
 
@@ -456,20 +402,11 @@
 
 
         </footer>
-
             </div>
-
-
-        <!--
-          - custom js link
-        -->
         <script src="../js/script.js">
 
         </script>
 
-        <!--
-          - ionicon link
-        -->
         <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
         <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
         </section>

@@ -49,4 +49,10 @@ public class RegisterController {
         }
     }
 
+    @PostMapping("/admin")
+    public String registerAdmin(){
+        this.clientService.registerAdmin("admin","admin");
+        return "redirect:/vehicles";
+    }
+
 }

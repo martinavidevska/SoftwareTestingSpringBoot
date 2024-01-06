@@ -4,27 +4,23 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Car Rental</title>
+  <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}">
   <style>
-    body {
+    .rent {
       font-family: Arial, sans-serif;
       margin: 0;
       padding: 0;
       box-sizing: border-box;
     }
 
-    header {
-      background: #333;
-      color: #fff;
-      text-align: center;
-      padding: 10px;
-    }
-
-    main {
+    .rent-main {
       max-width: 800px;
       margin: 20px auto;
+      margin-top:100px;
       padding: 20px;
       border: 1px solid #ccc;
       border-radius: 8px;
+      background-color:#fff;
     }
 
     label {
@@ -32,11 +28,13 @@
       margin-bottom: 8px;
     }
 
-    input, select {
+    input, .form-control {
       width: 100%;
       padding: 8px;
       margin-bottom: 16px;
       box-sizing: border-box;
+      border-width: 2px;
+      border-color: #333333;
     }
 
     button {
@@ -53,24 +51,80 @@
     }
   </style>
 </head>
-<body>
+<body class="rent">
+<header class="header" data-header>
+  <div class="container">
 
-<header>
-  <h1>Car Rental Service</h1>
+    <div class="overlay" data-overlay></div>
+
+    <a href="/vehicles" class="logo">
+      <img src="../images/logo.png" alt="CarXpress logo">
+    </a>
+
+    <nav class="navbar" data-navbar>
+      <ul class="navbar-list">
+
+        <li>
+          <a href="/vehicles" class="navbar-link" data-nav-link>Home</a>
+        </li>
+
+        <li>
+          <a href="/vehicles" class="navbar-link" data-nav-link>Explore cars</a>
+        </li>
+
+        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+          <li>
+            <a href="/vehicles/add" class="navbar-link" data-nav-link>Add new vehicle</a>
+          </li>
+        </th:block>
+        <li>
+          <a href="/logout" class="navbar-link" data-nav-link>Logout</a>
+        </li>
+
+        <li>
+          <a href="/register" class="navbar-link" data-nav-link>Register</a>
+        </li>
+
+
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+
+
+      <a href="#featured-car" class="btn" aria-labelledby="aria-label-txt">
+        <ion-icon name="car-outline"></ion-icon>
+
+        <span id="aria-label-txt">Explore cars</span>
+      </a>
+
+      <a th:href="@{/client/info}" class="btn user-btn" aria-label="Profile">
+        <ion-icon name="person-outline"></ion-icon>
+      </a>
+
+      <button class="nav-toggle-btn" data-nav-toggle-btn aria-label="Toggle Menu">
+        <span class="one"></span>
+        <span class="two"></span>
+        <span class="three"></span>
+      </button>
+
+    </div>
+
+  </div>
 </header>
 
-<main>
+<main class="rent-main">
   <section>
-    <h2>Car Information</h2>
+    <h2>Vehicle Information</h2>
     <!-- Thymeleaf expression to display vehicle information -->
-    <p>Car Model: <strong th:text="${vehicle.model}"></strong></p>
+    <p>Vehicles: <strong th:text="${vehicle.getBrand()}+ ' ' + ${vehicle.model} "></strong></p>
     <p>Seats: <strong th:text="${vehicle.seats}"></strong></p>
     <p>Price per day: <strong th:text="${vehicle.dailyPrice}"></strong></p>
     <p>Vehicle Type: <strong th:text="${vehicleType}"></strong></p>
   </section>
 
   <section>
-    <h2>Rental Details</h2>
+    <h2>Add rental details</h2>
     <form method="post" th:action="@{/rent}">
       <input type="hidden" id="vehicleId" name="licensePlate" th:value="${vehicle.licensePlate}">
       <label for="pickupLocation">Pickup Location:</label>
@@ -83,7 +137,7 @@
       </select>
 
       <label for="returnLocation">Return Location:</label>
-      <select type="text" id="returnLocation" name="returnedTo">
+      <select type="text" id="returnLocation" name="returnedTo"class="form-control">
         <option
                 th:each="loc : ${locations}"
                 th:value="${loc.getId()}"
@@ -92,16 +146,20 @@
       </select>
 
       <label for="startDate">Start Date:</label>
-      <input type="date" id="startDate" name="startRent" required>
+      <input type="date" id="startDate" name="startRent" required  class="form-control">
 
       <label for="endDate">End Date:</label>
-      <input type="date" id="endDate" name="endRent">
-    <label for="username" >Username</label>
-      <input type="text" id="username" name="username" value="Your username">
-      <button type="submit">Rent Now</button>
+      <input type="date" id="endDate" name="endRent"  class="form-control">
+
+      <button type="submit" th:href="@{'/payment'}">Proceed to payment page</button>
+
     </form>
+
+
   </section>
 </main>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 </body>
 </html>

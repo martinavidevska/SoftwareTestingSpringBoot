@@ -25,11 +25,17 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client register(String username, String password , String name,String email, String phoneNumber, String driverLicenseNumber, String address) {
-        return clientRepository.save(new Client(name, passwordEncoder.encode(password),name,email,phoneNumber,driverLicenseNumber,address, Role.USER));
+        return clientRepository.save(new Client(username, passwordEncoder.encode(password),name,email,phoneNumber,driverLicenseNumber,address, Role.USER));
     }
     @Override
     public Optional<Client> findByUsername(String username) {
         return this.clientRepository.findByUsername(username);
+    }
+
+    @Override
+    public Client registerAdmin(String username, String password) {
+        Client client=new Client(username,passwordEncoder.encode(password));
+        return this.clientRepository.save(client);
     }
 
 

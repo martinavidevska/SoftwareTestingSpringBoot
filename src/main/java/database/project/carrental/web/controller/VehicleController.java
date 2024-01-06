@@ -8,10 +8,7 @@ import database.project.carrental.repository.VehicleTypeRepository;
 import database.project.carrental.service.VehicleService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -41,19 +38,6 @@ public class VehicleController {
         return "index";
     }
 
-    @GetMapping("/rent/{id}")
-    private String showVehicleById(@PathVariable String id, Model model){
-            Vehicle vehicle = vehicleService.findByLicensePlate(id);
-            String typeDescription = vehicle.getVehicleType().getDescription();
-            List<Location>allLocations=locationRepository.findAll();
-
-            model.addAttribute("vehicle", vehicle);
-            model.addAttribute("vehicleType", typeDescription);
-            model.addAttribute("locations",allLocations);
-            //Treba da promenam
-            return "rent";
-
-    }
 
     @GetMapping("/filter")
     public String filter(@RequestParam(required = false)Long vehicleTypeId,
@@ -64,7 +48,11 @@ public class VehicleController {
         try {
             if (dailyPrice != null) {
                 Double dailyPrice1 = Double.parseDouble(dailyPrice);
-                List<Vehicle> filterVehicles = vehicleService.filter(vehicleTypeId, dailyPrice1, vehicleModel);
+            List<Vehicle> filterVehicles = vehicleService.filter(vehicleTypeId, dailyPrice1, vehicleModel);
+            model.addAttribute("vehicles", filterVehicles);
+            }
+            else {
+                List<Vehicle> filterVehicles = vehicleService.filter(vehicleTypeId, null, vehicleModel);
                 model.addAttribute("vehicles", filterVehicles);
             }
         } catch (NumberFormatException e) {
@@ -75,5 +63,25 @@ public class VehicleController {
         return "index";
     }
 
+    @GetMapping("/add")
+    private String getAddForm(Model model){
+        List<VehicleType> types=this.vehicleTypeRepository.findAll();
+        model.addAttribute("types", types);
+        return "add-vehicle";
+
+    }
+        @PostMapping("/add-vehicle")
+    private String addVehicle(@RequestParam String licensePlate,
+                              @RequestParam String model,
+                              @RequestParam String brand,
+                              @RequestParam Integer seats,
+                              @RequestParam Double dailyPrice,
+                              @RequestParam Integer bags,
+                              @RequestParam VehicleType vehicleType,
+                              @RequestParam String pictureLink){
+
+        this.vehicleService.add(licensePlate, model, brand, seats, dailyPrice, bags, vehicleType, pictureLink);
+        return "redirect:/vehicles";
+        }
 
 }

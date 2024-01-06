@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" type="text/css" href="/css/style.css">
+  <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <style>
     body {
@@ -18,9 +18,10 @@
       height: 100vh;
     }
 
-    .container {
+    .containerlogin {
       /* Removed display: flex and justify-content */
       align-items: center;
+      margin-top: 250px;
       height: 100vh;
       text-align: center; /* Center text in case of single-line content */
     }
@@ -45,9 +46,8 @@
 
     .logo {
       text-align: center;
-      color: #3498db;
       font-size: 24px;
-      margin-top: 10px;
+      margin-left: 30px;
     }
 
     label {
@@ -106,7 +106,7 @@
 
     <div class="overlay" data-overlay></div>
 
-    <a href="#" class="logo">
+    <a href="/vehicles" class="logo">
       <img src="../images/logo.png" alt="CarXpress logo">
     </a>
 
@@ -114,20 +114,26 @@
       <ul class="navbar-list">
 
         <li>
-          <a href="#home" class="navbar-link" data-nav-link>Home</a>
+          <a href="/vehicles" class="navbar-link" data-nav-link>Home</a>
         </li>
 
         <li>
-          <a href="#featured-car" class="navbar-link" data-nav-link>Explore cars</a>
+          <a href="/vehicles" class="navbar-link" data-nav-link>Explore cars</a>
+        </li>
+
+        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+          <li>
+            <a href="/vehicles/add" class="navbar-link" data-nav-link>Add new vehicle</a>
+          </li>
+        </th:block>
+        <li>
+          <a href="/logout" class="navbar-link" data-nav-link>Logout</a>
         </li>
 
         <li>
-          <a href="#" class="navbar-link" data-nav-link>About us</a>
+          <a href="/register" class="navbar-link" data-nav-link>Register</a>
         </li>
 
-        <li>
-          <a href="/client/register" class="navbar-link" data-nav-link>Register</a>
-        </li>
 
       </ul>
     </nav>
@@ -141,7 +147,7 @@
         <span id="aria-label-txt">Explore cars</span>
       </a>
 
-      <a href="#" class="btn user-btn" aria-label="Profile">
+      <a th:href="@{/client/info}" class="btn user-btn" aria-label="Profile">
         <ion-icon name="person-outline"></ion-icon>
       </a>
 
@@ -157,12 +163,14 @@
 </header>
 
 
-<div class="container">
+<div class="containerlogin">
   <div class="login-container">
     <div class="form">
       <h1>REGISTER</h1>
       <div class="logo">
-        <span>TakeTheJourney Car Rental App</span>
+        <a href="index.html" class="logo" >
+          <img src="../images/logo.png" alt="CarXpress logo">
+        </a>
       </div>
       <form action="/register" method="post">
         <label for="username">USERNAME</label>
@@ -194,6 +202,8 @@
 
   <div class="image"></div>
 </div>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
 
 </body>
 </html>

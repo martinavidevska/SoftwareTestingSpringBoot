@@ -20,22 +20,27 @@ public class Payment {
     private double amount;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfPayment;
-    @Column(name = "method_of_payment")
-    private String methodeOfPayment;
     @ManyToOne
     @JoinColumn(name = "username")
     private Client client;
     @ManyToOne
     @JoinColumn(name = "license_plate")
     private Vehicle vehicle;
+    private String cardNumber;
+    private String ccv;
+    private String expirationDate;
+    private String cardholderName;
 
-    public Payment( Renting renting, Long amount, LocalDate dateOfPayment, String methodeOfPayment, Client client, Vehicle vehicle) {
+    public Payment(Renting renting, double amount, LocalDate dateOfPayment, Client client, Vehicle vehicle, String cardNumber, String ccv, String expirationDate, String cardholderName) {
         this.renting = renting;
         this.amount = amount;
         this.dateOfPayment = dateOfPayment;
-        this.methodeOfPayment = methodeOfPayment;
         this.client = client;
         this.vehicle = vehicle;
+        this.cardNumber=cardNumber;
+        this.ccv=ccv;
+        this.expirationDate=expirationDate;
+        this.cardholderName=cardholderName;
     }
 
     public Payment() {
