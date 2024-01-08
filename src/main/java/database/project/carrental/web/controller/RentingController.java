@@ -4,6 +4,7 @@ import database.project.carrental.model.*;
 import database.project.carrental.model.exceptions.ClientNotFoundException;
 import database.project.carrental.repository.ClientRepository;
 import database.project.carrental.repository.LocationRepository;
+import database.project.carrental.repository.RentingViewRepository;
 import database.project.carrental.repository.VehicleRepository;
 import database.project.carrental.service.RentingService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,12 +24,14 @@ public class RentingController {
     private final LocationRepository locationRepository;
     private final VehicleRepository vehicleRepository;
     private final ClientRepository clientRepository;
+    private final RentingViewRepository rentingViewRepository;
 
-    public RentingController(RentingService rentingService, LocationRepository locationRepository, VehicleRepository vehicleRepository, ClientRepository clientRepository) {
+    public RentingController(RentingService rentingService, LocationRepository locationRepository, VehicleRepository vehicleRepository, ClientRepository clientRepository, RentingViewRepository rentingViewRepository) {
         this.rentingService = rentingService;
         this.locationRepository = locationRepository;
         this.vehicleRepository = vehicleRepository;
         this.clientRepository = clientRepository;
+        this.rentingViewRepository = rentingViewRepository;
     }
 
     @PostMapping("rent")
@@ -65,6 +68,12 @@ public class RentingController {
         //Treba da promenam
         return "rent";
 
+    }
+    @GetMapping("/listAll")
+    private String listAll(Model model){
+        List<RentingView> rentings = this.rentingViewRepository.findAll();
+        model.addAttribute("rentings", rentings);
+        return "rentings";
     }
 
 private double getTotalAmount(LocalDate startRent, LocalDate endRent, Double dailyPrice) {

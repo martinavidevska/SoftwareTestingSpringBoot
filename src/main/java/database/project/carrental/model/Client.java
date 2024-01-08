@@ -46,11 +46,11 @@ public class Client implements UserDetails {
     public Client(String username, String password) {
         this.username = username;
         this.password = password;
-        this.name=null;
-        this.email = null;
-        this.phoneNumber = null;
-        this.driverLicenseNumber = null;
-        this.address = null;
+        this.name="";
+        this.email = "";
+        this.phoneNumber = "";
+        this.driverLicenseNumber = "";
+        this.address = "";
         this.role = Role.ADMIN;
     }
 

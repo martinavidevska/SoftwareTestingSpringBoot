@@ -1,28 +1,29 @@
 package database.project.carrental.web.controller;
 
 import database.project.carrental.model.Client;
-import database.project.carrental.model.Renting;
+import database.project.carrental.model.ClientRentingView;
 import database.project.carrental.model.exceptions.ClientNotFoundException;
 import database.project.carrental.repository.ClientRepository;
 import database.project.carrental.repository.RentingRepository;
-import database.project.carrental.service.ClientService;
+import database.project.carrental.service.ClientRentingViewService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/client")
 public class ClientController {
     private final ClientRepository clientRepository;
     private final RentingRepository rentingRepository;
+    private final ClientRentingViewService clientRentingViewService;
 
-    public ClientController(ClientRepository clientRepository, RentingRepository rentingRepository) {
+    public ClientController(ClientRepository clientRepository, RentingRepository rentingRepository, ClientRentingViewService clientRentingViewService) {
         this.clientRepository = clientRepository;
         this.rentingRepository = rentingRepository;
+        this.clientRentingViewService = clientRentingViewService;
     }
 
     @GetMapping("/info")
@@ -30,7 +31,8 @@ public class ClientController {
         String username=req.getRemoteUser();
 
         Client client = this.clientRepository.findByUsername(username).orElseThrow(()->new ClientNotFoundException(username));
-        List<Renting> rents=this.rentingRepository.findAllByClient(Optional.ofNullable(client));
+        List<ClientRentingView> rents=this.clientRentingViewService.findByUsername(username);
+        System.out.println("Rents: "  +rents);
         model.addAttribute("client", client);
         model.addAttribute("rents",rents);
 

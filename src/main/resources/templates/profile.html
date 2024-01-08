@@ -184,11 +184,15 @@
     <h2 >Your Rentals</h2>
     <form th:each="rent : ${rents}">
       <div class="rental-item">
-        <img th:src="${rent.getVehicle().getPictureLink()}" loading="lazy" width="300" height="240" class="w-100">
-        <p><strong>Car :</strong> <span th:text="${rent.getVehicle().getBrand()} + ' '+ ${rent.getVehicle().getModel()}"></span></p>
+        <img th:src="${rent.pictureLink}" loading="lazy" width="300" height="240" class="w-100">
+        <p><strong>Car :</strong> <span th:text="${rent.brand} + ' '+ ${rent.model}"></span></p>
         <p><strong>Start Date:</strong> <span th:text="${rent.startRent}"></span></p>
         <p><strong>End Date:</strong> <span th:text="${rent.endRent}"></span></p>
-        <p><strong>Total Amount:</strong> <span th:text="${rent.getTotalAmount()}"></span></p>
+        <p><strong>Total Amount:</strong> <span th:text="${rent.totalAmount}"></span></p>
+      </div>
+      <div>
+        <p><strong>Pick up location:</strong> <span th:text="${rent.addressPickedFrom}"></span></p>
+        <p><strong>Return location:</strong> <span th:text="${rent.addressReturnedTo}"></span></p>
       </div>
     </form>
 

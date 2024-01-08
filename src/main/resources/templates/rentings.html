@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rentings Preview</title>
+    <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
+        }
+
+        h2 {
+            color: #007bff;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        th, td {
+            border: 1px solid #dee2e6;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #007bff;
+            color: #ffffff;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f9f9f9;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+    </style>
+</head>
+<body>
+
+
+<header class="header" data-header>
+    <div class="container">
+
+        <div class="overlay" data-overlay></div>
+
+        <a href="/vehicles" class="logo">
+            <img src="../images/logo.png" alt="CarXpress logo">
+        </a>
+
+        <nav class="navbar" data-navbar>
+            <ul class="navbar-list">
+
+                <li>
+                    <a href="/vehicles" class="navbar-link" data-nav-link>Home</a>
+                </li>
+
+                <th:block sec:authorize="hasRole('ADMIN')">
+                    <li>
+                        <a href="/vehicles/add" class="navbar-link" data-nav-link>Add new vehicle</a>
+                    </li>
+                </th:block>
+                <li>
+                    <a href="/logout" class="navbar-link" data-nav-link>Logout</a>
+                </li>
+                <th:block sec:authorize="hasRole('USER') or not isAuthenticated()">
+                    <li>
+                        <a href="/register" class="navbar-link" data-nav-link>Register</a>
+                    </li>
+                </th:block>
+                <th:block sec:authorize="hasRole('ADMIN')">
+                    <li >
+                        <a href="/listAll" class="navbar-link" data-nav-link>All Rentings</a>
+                    </li>
+                </th:block>
+
+
+            </ul>
+        </nav>
+
+        <div class="header-actions">
+
+
+            <a href="#featured-car" class="btn" aria-labelledby="aria-label-txt">
+                <ion-icon name="car-outline"></ion-icon>
+
+                <span id="aria-label-txt">Explore cars</span>
+            </a>
+            <th:block sec:authorize="hasRole('USER') or not isAuthenticated()">
+                <a th:href="@{/client/info}" class="btn user-btn" aria-label="Profile"></th:block>
+            <ion-icon name="person-outline"></ion-icon>
+            </a>
+            </th:block>
+            <button class="nav-toggle-btn" data-nav-toggle-btn aria-label="Toggle Menu">
+                <span class="one"></span>
+                <span class="two"></span>
+                <span class="three"></span>
+            </button>
+
+        </div>
+
+    </div>
+</header>
+</br>
+</br>
+</br>
+<h2>Rentings Preview</h2>
+
+<table>
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th>Client Name</th>
+        <th>License Plate</th>
+        <th>Model</th>
+        <th>Brand</th>
+        <th>Picked From</th>
+        <th>Returned To</th>
+        <th>Total Amount</th>
+        <th>Cardholder Name</th>
+    </tr>
+    </thead>
+    <tbody>
+    <!-- Use Thymeleaf to iterate over rentings and populate the table -->
+    <tr th:each="renting : ${rentings}">
+        <td th:text="${renting.idRenting}"></td>
+        <td th:text="${renting.startRent}"></td>
+        <td th:text="${renting.endRent}"></td>
+        <td th:text="${renting.nameClient}"></td>
+        <td th:text="${renting.licensePlate}"></td>
+        <td th:text="${renting.model}"></td>
+        <td th:text="${renting.brand}"></td>
+        <td th:text="${renting.pickedFrom}"></td>
+        <td th:text="${renting.returnedTo}"></td>
+        <td th:text="${renting.totalAmount}"></td>
+        <td th:text="${renting.cardholderName}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<script src="../js/script.js">
+
+</script>
+
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+</html>
