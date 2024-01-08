@@ -39,6 +39,9 @@
         .card-content {
             padding: 15px;
         }
+        #vehicleTypeId {
+            height: 45px;
+        }
     </style>
 </head>
 
@@ -125,20 +128,19 @@
         <form action="/filter" class="hero-form" metod="get">
 
             <div class="input-wrapper">
-                <label for="vehicleModel" class="input-label" >Any specific car that you are looking for?</label>
-                <input type="text" name="vehicleModel" id="vehicleModel" class="input-field"
+                <label for="vehicleModel" class="input-label" > Search by model</label>
+                <input value="" type="text" name="vehicleModel" id="vehicleModel" class="input-field"
                        placeholder="Model">
             </div>
 
             <div class="input-wrapper">
                 <label for="price" class="input-label">Maximal daily price</label>
-
-                <input type="text" name="dailyPrice" id="price" class="input-field" placeholder="Add an amount in denari">
+                <input value="" type="text" name="dailyPrice" id="price" class="input-field" placeholder="Add an amount in denari">
             </div>
 
             <div class="input-wrapper">
                 <label for="vehicleTypeId" class="input-label">Choose a vehicle type</label>
-                <select name="vehicleTypeId" id="vehicleTypeId" class="input-field">
+                <select name="description" id="vehicleTypeId" class="input-field">
                     <option value="">All</option>
                     <option th:each="type : ${vehicleTypes}" th:value="${type.description}" th:text="${type.description}"></option>
                 </select>
@@ -233,165 +235,6 @@
 </section>
 
 
-
-
-
-<!--
-  - #FOOTER
--->
-
-<footer class="footer">
-    <div class="container">
-
-        <div class="footer-top">
-
-            <div class="footer-brand">
-                <a href="#" class="logo">
-                    <img src="../images/logo.svg" alt="Ridex logo">
-                </a>
-
-                <p class="footer-text">
-                    Search for cheap rental cars in New York. With a diverse fleet of 19,000 vehicles, Waydex offers its
-                    consumers an
-                    attractive and fun selection.
-                </p>
-            </div>
-
-            <ul class="footer-list">
-
-                <li>
-                    <p class="footer-list-title">Company</p>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-link">About us</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-link">Pricing plans</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-link">Our blog</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-link">Contacts</a>
-                </li>
-
-            </ul>
-
-            <ul class="footer-list">
-
-                <li>
-                    <p class="footer-list-title">Support</p>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-link">Help center</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-link">Ask a question</a>
-                </li>
-                <li>
-                    <a href="#" class="footer-link">Privacy policy</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-link">Terms & conditions</a>
-                </li>
-
-            </ul>
-
-            <ul class="footer-list">
-
-                <li>
-                    <p class="footer-list-title">Neighborhoods in New York</p>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-link">Manhattan</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-link">Central New York City</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-link">Upper East Side</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-link">Queens</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-link">Theater District</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-link">Midtown</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-link">SoHo</a>
-                </li>
-
-                <li>
-                    <a href="#" class="footer-link">Chelsea</a>
-                </li>
-
-            </ul>
-
-        </div>
-
-        <div class="footer-bottom">
-
-            <ul class="social-list">
-
-                <li>
-                    <a href="#" class="social-link">
-                        <ion-icon name="logo-facebook"></ion-icon>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#" class="social-link">
-                        <ion-icon name="logo-instagram"></ion-icon>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#" class="social-link">
-                        <ion-icon name="logo-twitter"></ion-icon>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#" class="social-link">
-                        <ion-icon name="logo-linkedin"></ion-icon>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#" class="social-link">
-                        <ion-icon name="logo-skype"></ion-icon>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="#" class="social-link">
-                        <ion-icon name="mail-outline"></ion-icon>
-                    </a>
-                </li>
-
-            </ul>
-        </div>
-    </div>
-
-
-</footer>
 </div>
 <script src="../js/script.js">
 

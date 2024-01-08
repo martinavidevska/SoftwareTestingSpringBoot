@@ -36,7 +36,7 @@ public class SecurityConfig  {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests( (requests) -> requests
-                        .requestMatchers( "/vehicles/**","/register","css/**","images/**", "js/**", "/register/admin")
+                        .requestMatchers( "/vehicles/**","/register","css/**","images/**", "js/**", "/register/admin", "/filter")
                         .permitAll()
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
@@ -64,7 +64,7 @@ public class SecurityConfig  {
         return http.build();
     }
 
-    // In Memory Authentication
+    // In Memory Authentication@
    // @Bean
     public UserDetailsService userDetailsService() {
         UserDetails admin = User.builder()
@@ -91,8 +91,4 @@ public class SecurityConfig  {
 
         return authenticationManagerBuilder.build();
     }
-
-
-
-
 }

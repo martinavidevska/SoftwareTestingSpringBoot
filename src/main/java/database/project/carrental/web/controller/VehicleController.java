@@ -42,9 +42,9 @@ public class VehicleController {
         return "index";
     }
     @GetMapping("/filter")
-    public String filter(@RequestParam(required = false)String description,
-                          @RequestParam(required = false)String vehicleModel,
-                          @RequestParam(required = false)String dailyPrice,
+    public String filter(@RequestParam(required = false) String description,
+                         @RequestParam(required = false) String vehicleModel,
+                         @RequestParam(required = false) String dailyPrice,
                           Model model){
         List<AvailableVehicleView> vehicles=this.availableVehicleViewService.filter(description,vehicleModel,dailyPrice);
         List<VehicleType>vehicleTypes=this.vehicleTypeRepository.findAll();

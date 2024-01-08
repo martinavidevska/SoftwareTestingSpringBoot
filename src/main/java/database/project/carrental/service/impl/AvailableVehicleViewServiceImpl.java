@@ -23,7 +23,7 @@ public class AvailableVehicleViewServiceImpl implements AvailableVehicleViewServ
 
     @Override
     public List<AvailableVehicleView> filter(String description, String model, String dailyPrice) {
-        if (!description.isEmpty() && dailyPrice != null && !model.isEmpty()) {
+        if ((!description.isEmpty() || description!=null) && dailyPrice != null && !model.isEmpty()) {
             // Handle the case when dailyPrice is not empty and not null
             return this.availableVehicleViewRepository.findByDescriptionAndDailyPriceIsLessThanEqualAndModel(description, Double.parseDouble(dailyPrice), model);
         } else if (!description.isEmpty() && dailyPrice != null && !dailyPrice.isEmpty()) {
