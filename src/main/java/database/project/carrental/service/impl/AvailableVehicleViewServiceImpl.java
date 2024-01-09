@@ -23,26 +23,32 @@ public class AvailableVehicleViewServiceImpl implements AvailableVehicleViewServ
 
     @Override
     public List<AvailableVehicleView> filter(String description, String model, String dailyPrice) {
-        if ((!description.isEmpty() || description!=null) && dailyPrice != null && !model.isEmpty()) {
-            // Handle the case when dailyPrice is not empty and not null
+        if ((description != null && !description.isEmpty()) && (dailyPrice != null && !dailyPrice.isEmpty()) && (model != null && !model.isEmpty())) {
+            // Handle the case when dailyPrice, description, and model are not empty or null
             return this.availableVehicleViewRepository.findByDescriptionAndDailyPriceIsLessThanEqualAndModel(description, Double.parseDouble(dailyPrice), model);
-        } else if (!description.isEmpty() && dailyPrice != null && !dailyPrice.isEmpty()) {
-            // Handle the case when dailyPrice is not empty but can be null
+        } else if ((description != null && !description.isEmpty()) && (dailyPrice != null && !dailyPrice.isEmpty())) {
+            // Handle the case when dailyPrice and description are not empty or null
             return this.availableVehicleViewRepository.findByDescriptionAndDailyPriceIsLessThanEqual(description, Double.parseDouble(dailyPrice));
-        } else if (!description.isEmpty() && !model.isEmpty()) {
+        } else if ((description != null && !description.isEmpty()) && (model != null && !model.isEmpty())) {
+            // Handle the case when description and model are not empty or null
             return this.availableVehicleViewRepository.findByModelAndDescription(model, description);
-        } else if (!model.isEmpty() && dailyPrice != null && !dailyPrice.isEmpty()) {
+        } else if ((model != null && !model.isEmpty()) && (dailyPrice != null && !dailyPrice.isEmpty())) {
+            // Handle the case when dailyPrice and model are not empty or null
             return this.availableVehicleViewRepository.findByModelAndDailyPriceIsLessThanEqual(model, Double.parseDouble(dailyPrice));
-        } else if (!model.isEmpty()) {
+        } else if (model != null && !model.isEmpty()) {
+            // Handle the case when model is not empty or null
             return this.availableVehicleViewRepository.findByModel(model);
         } else if (dailyPrice != null && !dailyPrice.isEmpty()) {
+            // Handle the case when dailyPrice is not empty or null
             return this.availableVehicleViewRepository.findByDailyPriceIsLessThanEqual(Double.parseDouble(dailyPrice));
-        } else if (!description.isEmpty()) {
+        } else if (description != null && !description.isEmpty()) {
+            // Handle the case when description is not empty or null
             return this.availableVehicleViewRepository.findByDescription(description);
         } else {
             return this.availableVehicleViewRepository.findAll();
         }
     }
+
 
 }
 
