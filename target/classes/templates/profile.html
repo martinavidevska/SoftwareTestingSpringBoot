@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:java8="http://www.thymeleaf.org/thymeleaf-extras-java8time">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}">
+
+  <style>
+    .profile {
+      font-family: Arial, sans-serif;
+      margin: 0px;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f4f4f4;
+    }
+
+    .container-profile {
+      max-width: 800px;
+      margin: 100px auto;
+      margin-top:100px;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      text-align: center;
+      color: #3498db;
+    }
+
+    .profile-info {
+      margin-bottom: 20px;
+      background-color: #f2f2f2; /* Set a different background color */
+      padding: 15px;
+      border-radius: 8px;
+    }
+
+    .profile-info label {
+      display: block;
+      margin: 10px 0 5px;
+      color: black; /* Set label text color */
+      font-weight: bold;
+      padding: 5px; /* Add padding for better appearance */
+      border-radius: 4px;
+    }
+
+    .profile-info p {
+      margin: 0;
+      padding: 5px 0;
+      background-color: #3498db; /* Set label background color */
+      color: #fff;
+      padding: 5px;
+      border-radius: 4px;
+    }
+
+    .rentals {
+      margin-top: 20px;
+    }
+
+    .rentals h2 {
+      color: #3498db;
+      margin-bottom: 10px;
+      border-bottom: 2px solid #3498db;
+      padding-bottom: 5px;
+    }
+
+    .rental-item {
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      padding: 10px;
+      margin-bottom: 10px;
+    }
+
+    .rental-item img {
+      width: 100%;
+      max-height: 240px;
+      object-fit: cover;
+      border-radius: 4px;
+    }
+
+    .rental-details {
+      margin-top: 10px;
+    }
+
+    .rental-details p {
+      margin: 5px 0;
+    }
+
+    .rental-details strong {
+      color: #3498db;
+    }
+  </style>
+  <title>Profile Page</title>
+</head>
+<body class="profile">
+<header class="header" data-header>
+  <div class="container">
+
+    <div class="overlay" data-overlay></div>
+
+    <a href="/vehicles" class="logo">
+      <img src="../images/logo.png" alt="CarXpress logo">
+    </a>
+
+    <nav class="navbar" data-navbar>
+      <ul class="navbar-list">
+
+        <li>
+          <a href="/vehicles" class="navbar-link" data-nav-link>Home</a>
+        </li>
+
+        <li>
+          <a href="/vehicles" class="navbar-link" data-nav-link>Explore cars</a>
+        </li>
+
+        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+          <li>
+            <a href="/vehicles/add" class="navbar-link" data-nav-link>Add new vehicle</a>
+          </li>
+        </th:block>
+        <li>
+          <a href="/logout" class="navbar-link" data-nav-link>Logout</a>
+        </li>
+        <li>
+          <a href="/register" class="navbar-link" data-nav-link>Register</a>
+        </li>
+
+
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+
+
+      <a href="#featured-car" class="btn" aria-labelledby="aria-label-txt">
+        <ion-icon name="car-outline"></ion-icon>
+
+        <span id="aria-label-txt">Explore cars</span>
+      </a>
+
+      <a th:href="@{/client/info}" class="btn user-btn" aria-label="Profile">
+        <ion-icon name="person-outline"></ion-icon>
+      </a>
+
+      <button class="nav-toggle-btn" data-nav-toggle-btn aria-label="Toggle Menu">
+        <span class="one"></span>
+        <span class="two"></span>
+        <span class="three"></span>
+      </button>
+
+    </div>
+
+  </div>
+</header>
+
+
+<div class="container-profile">
+  <h1>Your Profile</h1>
+
+  <div class="profile-info" >
+    <label for="username">Username:</label>
+    <p id=username th:text="${client.username}"></p>
+
+    <label for="name">Name:</label>
+    <p id=name th:text="${client.name}"></p>
+
+    <label for="email">Email:</label>
+    <p id="email" th:text="${client.email}"></p>
+
+    <label for="phoneNumber">Phone Number:</label>
+    <p id="phoneNumber" th:text="${client.phoneNumber}"></p>
+
+    <label for="driverLicenseNumber">Driver License Number:</label>
+    <p id="driverLicenseNumber" th:text="${client.driverLicenseNumber}"></p>
+
+    <label for="address">Address:</label>
+    <p id="address" th:text="${client.address}"></p>
+  </div>
+
+  <div class="rentals">
+    <h2 >Your Rentals</h2>
+    <form th:each="rent : ${rents}">
+      <div class="rental-item">
+        <img th:src="${rent.pictureLink}" loading="lazy" width="300" height="240" class="w-100">
+        <p><strong>Car :</strong> <span th:text="${rent.brand} + ' '+ ${rent.model}"></span></p>
+        <p><strong>Start Date:</strong> <span th:text="${rent.startRent}"></span></p>
+        <p><strong>End Date:</strong> <span th:text="${rent.endRent}"></span></p>
+        <p><strong>Total Amount:</strong> <span th:text="${rent.totalAmount}"></span></p>
+      </div>
+      <div>
+        <p><strong>Pick up location:</strong> <span th:text="${rent.addressPickedFrom}"></span></p>
+        <p><strong>Return location:</strong> <span th:text="${rent.addressReturnedTo}"></span></p>
+      </div>
+    </form>
+
+  </div>
+</div>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f4f4f4;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      background-color: #fff;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #3498db;
+    }
+
+    .form {
+      margin-top: 20px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      color: #333;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    .text-danger {
+      color: red;
+    }
+  </style>
+  <title>Add New Vehicle</title>
+</head>
+<body>
+
+<div class="container">
+  <h1>Add New Vehicle</h1>
+
+  <form class="form" action="/vehicles/add-vehicle" method="POST">
+    <label for="licensePlate">License Plate:</label>
+    <input id="licensePlate" name="licensePlate" placeholder="License Plate" required>
+
+    <label for="brand">Brand:</label>
+    <input id="brand" name="brand" placeholder="Brand" required>
+
+    <label for="model">Model:</label>
+    <input id="model" name="model" placeholder="Model" required>
+
+    <label for="seats">Seats:</label>
+    <input id="seats" name="seats" placeholder="Seats" type="number" required>
+
+    <label for="bags">Bags:</label>
+    <input id="bags" name="bags" placeholder="Bags" type="number" required>
+
+    <label for="pictureLink">Picture link:</label>
+    <input id="pictureLink" name="pictureLink" placeholder="Picture link" required>
+
+    <label for="dailyPrice">Daily Price:</label>
+    <input id="dailyPrice" name="dailyPrice" type="number" placeholder="Daily Price" required>
+
+    <label >Vehicle type</label>
+   <select name="vehicleType"> <option
+           th:each="type:${types}"
+   th:value="${type.getId()}"
+   th:text="${type.getDescription()}">
+         </option>
+   </select>
+    <br>
+    <button type="submit">Add Vehicle</button>
+  </form>
+</div>
+
+</body>
+</html>

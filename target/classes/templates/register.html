@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      background-color: #f4f4f4;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .containerlogin {
+      /* Removed display: flex and justify-content */
+      align-items: center;
+      margin-top: 250px;
+      height: 100vh;
+      text-align: center; /* Center text in case of single-line content */
+    }
+
+    .login-container {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      width: 400px;
+      text-align: left; /* Align form elements to the left */
+    }
+
+    .form {
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 24px;
+      margin-left: 30px;
+    }
+
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      box-sizing: border-box;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #3498db;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #2980b9;
+    }
+
+    p {
+      text-align: center;
+      margin-top: 15px;
+      color: #333;
+    }
+
+    a {
+      color: #3498db;
+      text-decoration: none;
+    }
+
+    .image {
+
+      background-size: cover;
+      background-position: center;
+      flex-grow: 1;
+    }
+  </style>
+  <title>Sign in page</title>
+</head>
+<body>
+<header class="header" data-header>
+  <div class="container">
+
+    <div class="overlay" data-overlay></div>
+
+    <a href="/vehicles" class="logo">
+      <img src="../images/logo.png" alt="CarXpress logo">
+    </a>
+
+    <nav class="navbar" data-navbar>
+      <ul class="navbar-list">
+
+        <li>
+          <a href="/vehicles" class="navbar-link" data-nav-link>Home</a>
+        </li>
+
+        <li>
+          <a href="/vehicles" class="navbar-link" data-nav-link>Explore cars</a>
+        </li>
+
+        <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+          <li>
+            <a href="/vehicles/add" class="navbar-link" data-nav-link>Add new vehicle</a>
+          </li>
+        </th:block>
+        <li>
+          <a href="/logout" class="navbar-link" data-nav-link>Logout</a>
+        </li>
+
+        <li>
+          <a href="/register" class="navbar-link" data-nav-link>Register</a>
+        </li>
+
+
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+
+
+      <a href="#featured-car" class="btn" aria-labelledby="aria-label-txt">
+        <ion-icon name="car-outline"></ion-icon>
+
+        <span id="aria-label-txt">Explore cars</span>
+      </a>
+
+      <a th:href="@{/client/info}" class="btn user-btn" aria-label="Profile">
+        <ion-icon name="person-outline"></ion-icon>
+      </a>
+
+      <button class="nav-toggle-btn" data-nav-toggle-btn aria-label="Toggle Menu">
+        <span class="one"></span>
+        <span class="two"></span>
+        <span class="three"></span>
+      </button>
+
+    </div>
+
+  </div>
+</header>
+
+
+<div class="containerlogin">
+  <div class="login-container">
+    <div class="form">
+      <h1>REGISTER</h1>
+      <div class="logo">
+        <a href="index.html" class="logo" >
+          <img src="../images/logo.png" alt="CarXpress logo">
+        </a>
+      </div>
+      <form action="/register" method="post">
+        <label for="username">USERNAME</label>
+        <input type="text" id="username" name="username" placeholder="Username" required>
+
+        <label for="password">PASSWORD</label>
+        <input type="password" id="password" name="password" placeholder="Password" required>
+
+        <label for="name">FULL NAME</label>
+        <input type="text" id="name" name="name" placeholder="full name" required>
+
+        <label for="email">EMAIL</label>
+        <input type="text" id="email" name="email" placeholder="Email" required>
+
+        <label for="phoneNumber">PHONE NUMBER</label>
+        <input type="text" id="phoneNumber" name="phoneNumber" placeholder="Phone number we can contact you at" required>
+
+        <label for="driverLicenseNumber">DRIVER LICENSE NUMBER</label>
+        <input type="text" id="driverLicenseNumber" name="driverLicenseNumber" placeholder="Your driver's license number" required>
+
+        <label for="address">ADDRESS</label>
+        <input type="text" id="address" name="address" placeholder="Your home address" required>
+
+        <button type="submit">SIGN IN</button>
+      </form>
+      <p>Have an account? <a href="/login">Log in here</a></p>
+    </div>
+  </div>
+
+  <div class="image"></div>
+</div>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>

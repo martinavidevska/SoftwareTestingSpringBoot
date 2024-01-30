@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css"  th:href="@{/css/style.css}">
+  <title>Rent and Payment Success</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f4f4;
+    }
+
+    .container-success {
+      max-width: 600px;
+      margin: 0 auto;
+      margin-top: 100px;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+
+    h2 {
+      color: #333;
+      text-align: center;
+    }
+
+    p {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .success-icon {
+      display: block;
+      margin: 20px auto;
+      font-size: 48px;
+      color: #4caf50;
+    }
+
+    button {
+      display: block;
+      margin: 20px auto;
+      background-color: #4caf50;
+      color: #fff;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+
+<body>
+
+<header class="header" data-header>
+  <div class="container">
+
+    <div class="overlay" data-overlay></div>
+
+    <a href="/vehicles" class="logo">
+      <img src="../images/logo.png" alt="CarXpress logo">
+    </a>
+
+    <nav class="navbar" data-navbar>
+      <ul class="navbar-list">
+
+        <li>
+          <a href="/vehicles" class="navbar-link" data-nav-link>Home</a>
+        </li>
+
+        <li>
+          <a href="/vehicles" class="navbar-link" data-nav-link>Explore cars</a>
+        </li>
+       <th:block sec:authorize="hasRole('ROLE_ADMIN')">
+        <li>
+          <a href="/vehicles/add" class="navbar-link" data-nav-link>Add new vehicle</a>
+        </li>
+       </th:block>
+        <li>
+          <a href="/logout" class="navbar-link" data-nav-link>Logout</a>
+        </li>
+        <li>
+          <a href="/register" class="navbar-link" data-nav-link>Register</a>
+        </li>
+
+
+      </ul>
+    </nav>
+
+    <div class="header-actions">
+
+
+      <a href="#featured-car" class="btn" aria-labelledby="aria-label-txt">
+        <ion-icon name="car-outline"></ion-icon>
+
+        <span id="aria-label-txt">Explore cars</span>
+      </a>
+
+      <a th:href="@{/client/info}" class="btn user-btn" aria-label="Profile">
+        <ion-icon name="person-outline"></ion-icon>
+      </a>
+
+      <button class="nav-toggle-btn" data-nav-toggle-btn aria-label="Toggle Menu">
+        <span class="one"></span>
+        <span class="two"></span>
+        <span class="three"></span>
+      </button>
+
+    </div>
+
+  </div>
+</header>
+<div class="container-success">
+  <h2>Success!</h2>
+  <p>Your renting and payment were successful.</p>
+  <i class="success-icon">&#10004;</i>
+  <button ><a th:href="@{/vehicles}">Go to Home</a></button>
+  <button ><a th:href="@{/client/info}">Check the rental</a></button>
+</div>
+<script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+<script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+</html>
