@@ -1,9 +1,13 @@
 
+FROM maven:3.8.4 AS build
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn clean package
 
-FROM openjdk:21
-
-ARG JAR_FILE=target/*.jar
-
-COPY ./target/CarRental-0.0.1-SNAPSHOT.jar.original app.jar
-
-ENTRYPOINT ["java","-jar","/app.jar"]
+# Stage 2: Create the final image
+FROM openjdk:11-jre-slim
+WORKDIR /app
+COPY --from=build /app/target/*.jar app.jar
+EXPOSE 8080
+CMD ["java", "-jar", "app.jar"]
