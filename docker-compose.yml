@@ -1,0 +1,24 @@
+version: "3"
+services:
+  carxpress-db:
+    image: "postgres"
+    restart: always
+    container_name: "carxpress-db"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=laputaama
+      - POSTGRES_DB=postgres
+    ports:
+      - "5433:5432"
+    volumes:
+      - init:/var/lib/postgresql/data
+    networks:
+      - carxpress-net
+
+
+volumes:
+  init:
+
+networks:
+  carxpress-net:
+    driver: bridge
