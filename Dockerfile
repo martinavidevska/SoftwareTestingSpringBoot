@@ -1,16 +1,11 @@
-FROM openjdk:17 as build
-WORKDIR /workspace/app
+FROM maven:3.8.5-openjdk-17
 
-COPY mvnw .
-COPY .mvn .mvn
-COPY pom.xml .
-COPY src src
+WORKDIR /CarXpress
+COPY . .
+RUN mvn clean install -DskipTests
 
-RUN chmod +x mvnw
-RUN ./mvnw install -DskipTests
-RUN mkdir -p target/dependency && (cd target/dependency; jar -xf ../*.jar)
+# Add wait-for-it script
+ADD https://raw.githubusercontent.com/vishnubob/wait-for-it/master/wait-for-it.sh /wait-for-it.sh
+RUN chmod +x /wait-for-it.sh
 
-FROM openjdk:17
-ARG JAR_FILE=/workspace/app/target/*.jar
-COPY --from=build ${JAR_FILE} app.jar
-ENTRYPOINT ["java","-jar","-XX:+ExitOnOutOfMemoryError", "/app.jar"]
+CMD /wait-for-it.sh carxpress-db:5432 -- mvn spring-boot:run
