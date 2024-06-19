@@ -11,6 +11,7 @@ services:
       POSTGRES_DB: carxpress
     ports:
       - "5433:5432"
+#ova e mnogu vaznoo
     volumes:
       - ./db-postgres/postgres-data:/var/lib/postgresql/data
       - ./db-postgres/create.sql:/docker-entrypoint-initdb.d/create.sql
@@ -19,17 +20,14 @@ services:
 
   carxpress-app:
     image: "carxpress/app:2.0"
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile
     container_name: carxpress_app
     environment:
       SPRING_APPLICATION_JSON: '{
-             "spring.datasource.url"  : "jdbc:postgresql://carxpress-db:5432/carxpress",
+             "spring.datasource.url"  : "jdbc:postgresql://carxpress-db:5433/carxpress",
              "spring.datasource.username" : "postgres",
              "spring.datasource.password" : "laputaama",
              "spring.jpa.properties.hibernate.dialect" : "org.hibernate.dialect.PostgreSQLDialect",
-             "spring.jpa.hibernate.ddl-auto" : "update"
+             "spring.jpa.hibernate.ddl-auto" : "validate"
            }'
     depends_on:
       - carxpress-db
@@ -44,4 +42,4 @@ networks:
     driver: bridge
 
 volumes:
-  init:
+  postgres-data:
