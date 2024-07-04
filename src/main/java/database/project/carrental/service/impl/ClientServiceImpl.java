@@ -2,7 +2,6 @@ package database.project.carrental.service.impl;
 
 import database.project.carrental.model.Client;
 import database.project.carrental.model.Role;
-import database.project.carrental.model.exceptions.ClientNotFoundException;
 import database.project.carrental.repository.ClientRepository;
 import database.project.carrental.service.ClientService;
 import org.springframework.security.core.userdetails.UserDetails;

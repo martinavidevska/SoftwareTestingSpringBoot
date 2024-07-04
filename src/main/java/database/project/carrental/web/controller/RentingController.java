@@ -36,8 +36,8 @@ public class RentingController {
 
     @PostMapping("rent")
     private String addRenting(@RequestParam String licensePlate,
-                              @RequestParam Location pickedFrom,
-                              @RequestParam(required = false) Location returnedTo,
+                              @RequestParam Long pickedFromId,
+                              @RequestParam(required = false) Long returnedToId,
                               @RequestParam LocalDate startRent,
                               @RequestParam(required = false) LocalDate endRent,
                               HttpServletRequest req,
@@ -52,7 +52,7 @@ public class RentingController {
             totalAmount=0;
         }
         Client client=this.clientRepository.findByUsername(username).orElseThrow(()->new ClientNotFoundException(username));
-        Renting newRenting =  this.rentingService.addRenting(startRent,endRent,totalAmount,vehicle,client,pickedFrom, returnedTo);
+        Renting newRenting =  this.rentingService.addRenting(startRent,endRent,totalAmount,vehicle,client,pickedFromId, returnedToId);
         redirectAttributes.addFlashAttribute("rentingId", newRenting.getId());
         return "redirect:/payment";
 }
@@ -72,6 +72,7 @@ public class RentingController {
     @GetMapping("/listAll")
     private String listAll(Model model){
         List<RentingView> rentings = this.rentingViewRepository.findAll();
+
         model.addAttribute("rentings", rentings);
         return "rentings";
     }

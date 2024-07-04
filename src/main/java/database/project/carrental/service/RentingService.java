@@ -7,7 +7,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 public interface RentingService {
-    Renting addRenting(LocalDate startRent, LocalDate endRent, double totalAmount, Vehicle vehicle, Client client, Location pickedFrom, Location returnedTo);
+    Renting addRenting(LocalDate startRent, LocalDate endRent, double totalAmount, Vehicle vehicle, Client client, Long pickedFrom, Long returnedTo);
     Renting findById(Long id) throws RentingNotFoundException;
     List<Renting> findAllByUsername(String username);
 }
