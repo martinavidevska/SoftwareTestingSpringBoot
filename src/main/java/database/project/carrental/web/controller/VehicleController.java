@@ -1,6 +1,7 @@
 package database.project.carrental.web.controller;
 
 import database.project.carrental.model.AvailableVehicleView;
+import database.project.carrental.model.Vehicle;
 import database.project.carrental.model.VehicleType;
 import database.project.carrental.repository.LocationRepository;
 import database.project.carrental.repository.VehicleTypeRepository;
@@ -35,8 +36,8 @@ public class VehicleController {
             model.addAttribute("error", error);
         }
 
-        List<AvailableVehicleView> vehicles=this.availableVehicleViewService.getAvailableVehicles();
         List<VehicleType>vehicleTypes=this.vehicleTypeRepository.findAll();
+        List<Vehicle> vehicles = this.vehicleService.findAll();
         model.addAttribute("vehicleTypes",vehicleTypes);
         model.addAttribute("vehicles",vehicles);
         return "index";
@@ -46,8 +47,8 @@ public class VehicleController {
                          @RequestParam(required = false) String vehicleModel,
                          @RequestParam(required = false) String dailyPrice,
                           Model model){
-        List<AvailableVehicleView> vehicles=this.availableVehicleViewService.filter(description,vehicleModel,dailyPrice);
         List<VehicleType>vehicleTypes=this.vehicleTypeRepository.findAll();
+        List<Vehicle> vehicles = this.vehicleService.filter(description, dailyPrice,vehicleModel);
         model.addAttribute("vehicleTypes",vehicleTypes);
         model.addAttribute("vehicles",vehicles);
         return "index";

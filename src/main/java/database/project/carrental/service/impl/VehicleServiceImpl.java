@@ -45,36 +45,30 @@ public class VehicleServiceImpl implements VehicleService {
     }
 
     @Override
-    public List<Vehicle> filter(Long vehicleType, Double dailyPrice, String model) {
-
-        if(vehicleType!=null && dailyPrice!=null && model!=null) {
-            VehicleType vehicleTypeId=this.vehicleTypeRepository.findById(vehicleType).orElseThrow();
-            return this.vehicleRepository.findAllByVehicleTypeAndDailyPriceIsLessThanEqualAndModel(vehicleTypeId,dailyPrice,model);
-        }
-        else if(vehicleType!=null && dailyPrice!=null){
-            VehicleType vehicleTypeId=this.vehicleTypeRepository.findById(vehicleType).orElseThrow();
-            return this.vehicleRepository.findAllByVehicleTypeAndDailyPriceIsLessThanEqual(vehicleTypeId,dailyPrice);
-        }
-        else if (vehicleType != null && model != null) {
-            VehicleType vehicleTypeId=this.vehicleTypeRepository.findById(vehicleType).orElseThrow();
-            return this.vehicleRepository.findAllByModelAndVehicleType(model,vehicleTypeId);
-        }
-        else if(model!=null && dailyPrice!=null){
-            return this.vehicleRepository.findAllByModelAndDailyPriceIsLessThanEqual(model,dailyPrice);
-        }
-        else if(model!=null){
+    public List<Vehicle> filter(String description, String dailyPrice, String model) {
+        if ((description != null && !description.isEmpty()) && (dailyPrice != null && !dailyPrice.isEmpty()) && (model != null && !model.isEmpty())) {
+            VehicleType vehicleType = this.vehicleTypeRepository.findByDescription(description).orElseThrow();
+            return this.vehicleRepository.findAllByVehicleTypeAndDailyPriceIsLessThanEqualAndModel(vehicleType, Double.parseDouble(dailyPrice), model);
+        } else if ((description != null && !description.isEmpty()) && (dailyPrice != null && !dailyPrice.isEmpty())) {
+            VehicleType vehicleType = this.vehicleTypeRepository.findByDescription(description).orElseThrow();
+            return this.vehicleRepository.findAllByVehicleTypeAndDailyPriceIsLessThanEqual(vehicleType, Double.parseDouble(dailyPrice));
+        } else if ((description != null && !description.isEmpty()) && (model != null && !model.isEmpty())) {
+            VehicleType vehicleType = this.vehicleTypeRepository.findByDescription(description).orElseThrow();
+            return this.vehicleRepository.findAllByModelAndVehicleType(model, vehicleType);
+        } else if ((model != null && !model.isEmpty()) && (dailyPrice != null && !dailyPrice.isEmpty())) {
+            return this.vehicleRepository.findAllByModelAndDailyPriceIsLessThanEqual(model, Double.parseDouble(dailyPrice));
+        } else if (model != null && !model.isEmpty()) {
             return this.vehicleRepository.findAllByModel(model);
+        } else if (dailyPrice != null && !dailyPrice.isEmpty()) {
+            return this.vehicleRepository.findAllByDailyPriceIsLessThanEqual(Double.parseDouble(dailyPrice));
+        } else if (description != null && !description.isEmpty()) {
+            VehicleType vehicleType = this.vehicleTypeRepository.findByDescription(description).orElseThrow();
+            return this.vehicleRepository.findAllByVehicleType(vehicleType);
+        } else {
+            return this.findAll();
         }
-        else if(dailyPrice!=null){
-            return this.vehicleRepository.findAllByDailyPriceIsLessThanEqual(dailyPrice);
-        }
-        else if(vehicleType!=null){
-            VehicleType vehicleTypeId=this.vehicleTypeRepository.findById(vehicleType).orElseThrow();
-            return this.vehicleRepository.findAllByVehicleTypeId(vehicleTypeId);
-        }
-        else return this.findAll();
-
-
     }
+
+
 
 }

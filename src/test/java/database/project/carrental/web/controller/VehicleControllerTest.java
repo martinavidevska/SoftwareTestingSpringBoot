@@ -116,6 +116,36 @@ class VehicleControllerTest {
                 eq("http://example.com/picture.jpg")
         );
     }
+    @Test
+    @WithMockUser(username = "admin", roles = {"ADMIN"})
+    public void testFilterWithParameters() throws Exception {
+        // Arrange: Set up mock data
+        VehicleType vehicleType1 = new VehicleType(1L,"SUV");
+        List<VehicleType> vehicleTypes = Arrays.asList(vehicleType1);
+
+        Vehicle vehicle1 = new Vehicle("SK1009ER", "M4", "BMW", 4, 3400.0, 4, vehicleType1, "https://cache.bmwusa.com/cosy.arox?pov=walkaround&brand=WBBI&vehicle=24II&client=byoc&paint=P0300&fabric=FSASW&sa=S01GR,S0248,S0319,S0322,S0339,S0407,S0420,S0494,S04AA,S04NB,S05AC,S05AS,S05DM,S06AC,S06AK,S06C4,S06NX,S06U7&angle=30");
+        List<Vehicle> expectedVehicles = Arrays.asList(vehicle1);
+
+        // Mock the behavior of repositories and services
+        when(vehicleTypeRepository.findAll()).thenReturn(vehicleTypes);
+        when(vehicleService.filter("SUV", "3400.0", "M4")).thenReturn(expectedVehicles);
+
+        // Act: Perform the request
+        mockMvc.perform(get("/filter")
+                        .param("description", "SUV")
+                        .param("vehicleModel", "M4")
+                        .param("dailyPrice", "3400.0"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("index"))
+                .andExpect(model().attributeExists("vehicleTypes"))
+                .andExpect(model().attributeExists("vehicles"))
+                .andExpect(model().attribute("vehicleTypes", vehicleTypes))
+                .andExpect(model().attribute("vehicles", expectedVehicles)); // Assert the expected vehicles list
+
+        // Verify that the service method was called once with the correct parameters
+        verify(vehicleService, times(1)).filter("SUV", "3400.0", "M4");
+        verify(vehicleTypeRepository, times(1)).findAll();
+    }
 
 
 

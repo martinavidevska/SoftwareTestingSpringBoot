@@ -11,13 +11,13 @@ import java.util.Optional;
 @Repository
 public interface VehicleRepository extends JpaRepository<Vehicle, String> {
     Vehicle findByLicensePlate(String licensePlate);
-    List<Vehicle> findAllByVehicleTypeId(VehicleType vehicleTypeId);
+    List<Vehicle> findAllByVehicleType(VehicleType vehicleType);
     Vehicle findByModel(String model);
     Vehicle findBySeats(Integer seats);
-    List<Vehicle>findAllByModel(String model);
+    List<Vehicle> findAllByModel(String model);
     List<Vehicle> findAllByDailyPriceIsLessThanEqual(Double dailyPrice);
-    List<Vehicle> findAllByModelAndVehicleType(String model, VehicleType vehicleTypeId);
-    List<Vehicle>findAllByVehicleTypeAndDailyPriceIsLessThanEqual(VehicleType vehicleTypeId, Double dailyPrice);
-    List<Vehicle>findAllByVehicleTypeAndDailyPriceIsLessThanEqualAndModel(VehicleType vehicleTypeId,Double dailyPrice, String model);
-    List<Vehicle> findAllByModelAndDailyPriceIsLessThanEqual(String model,Double dailyPrice);
+    List<Vehicle> findAllByModelAndVehicleType(String model, VehicleType vehicleType);
+    List<Vehicle> findAllByVehicleTypeAndDailyPriceIsLessThanEqual(VehicleType vehicleType, Double dailyPrice);
+    List<Vehicle> findAllByVehicleTypeAndDailyPriceIsLessThanEqualAndModel(VehicleType vehicleType, Double dailyPrice, String model);
+    List<Vehicle> findAllByModelAndDailyPriceIsLessThanEqual(String model, Double dailyPrice);
 }

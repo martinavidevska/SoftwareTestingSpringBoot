@@ -187,7 +187,8 @@
                                 <span class="card-item-text" th:text="${vehicle.getSeats()}"> Seats</span>
                             </li>
                             <li class="card-list-item">
-                                <ion-icon name="bag-outline"></ion-icon>
+                                <ion-icon name="people-outline"></ion-icon>
+
                                 <span class="card-item-text" th:text="${vehicle.getBags()}"> Bags</span>
                             </li>
 
@@ -195,7 +196,7 @@
                             <li class="card-list-item">
                                 <ion-icon name="flash-outline"></ion-icon>
 
-                                <span class="card-item-text"th:text="${vehicle.getDescription()}" ></span>
+                                <span class="card-item-text"th:text="${vehicle.getVehicleType().getDescription()}" ></span>
                             </li>
                             <!--
                             ili enum ke bide deka opciite se samo automatic or manual car -->

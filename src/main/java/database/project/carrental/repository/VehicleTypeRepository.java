@@ -7,4 +7,5 @@ import java.util.Optional;
 
 public interface VehicleTypeRepository extends JpaRepository<VehicleType, Long> {
   Optional<VehicleType> findById(Long id);
+  Optional<VehicleType> findByDescription(String description);
 }
