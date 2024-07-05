@@ -12,5 +12,5 @@ public interface VehicleService {
     Vehicle remove(String licensePlate );
     Vehicle add(String licensePlate, String model, String brand, Integer seats, Double dailyPrice, Integer bags, VehicleType vehicleType, String pictureLink);
     List<Vehicle>findAll();
-    List<Vehicle> filter(Long vehicleTypeId, Double dailyPrice, String model);
+    List<Vehicle> filter(String vehicleType, String dailyPrice, String model);
 }

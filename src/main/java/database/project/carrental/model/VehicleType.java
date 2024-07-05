@@ -12,7 +12,10 @@ public class VehicleType {
     private Long id;
     private String description;
 
-    public VehicleType(Long id, String description) {
+    public VehicleType( String description) {
+        this.description = description;
+    }
+    public VehicleType( Long id,String description) {
         this.id = id;
         this.description = description;
     }
