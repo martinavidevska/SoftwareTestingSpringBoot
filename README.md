@@ -7,12 +7,6 @@ Welcome to the Car Rental Application repository! This project is part of a soft
 - [Introduction](#introduction)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
-- [Setup and Installation](#setup-and-installation)
-- [Running the Application](#running-the-application)
-- [Testing](#testing)
-- [Project Structure](#project-structure)
-- [Contributing](#contributing)
-- [License](#license)
 
 ## Introduction
 
@@ -39,17 +33,4 @@ This application provides functionalities for managing a car rental service, inc
 
 ## Setup and Installation
 
-### Prerequisites
 
-- Java 17
-- Maven
-- PostgreSQL 14.12
-- Git
-
-### Installation Steps
-
-1. Clone the repository:
-
-   ```bash
-   git clone https://github.com/your-username/car-rental-app.git
-   cd car-rental-app
