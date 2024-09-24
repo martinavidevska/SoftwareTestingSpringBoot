@@ -82,7 +82,7 @@ public class RentingControllerE2ETest {
 
         Renting newRenting = new Renting();
         newRenting.setId(1L);
-        when(rentingService.addRenting(any(), any(), any(), any(), any(), any(), any(), any()))
+        when(rentingService.addRenting(any(), any(), any(), any(), any(), any(), any()))
                 .thenReturn(newRenting);
 
 

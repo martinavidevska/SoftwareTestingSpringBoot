@@ -8,8 +8,6 @@ import database.project.carrental.service.RentingService;
 import database.project.carrental.web.controller.PaymentController;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.reactive.WebFluxTest;
@@ -55,12 +53,12 @@ public class PaymentControllerE2ETest {
         String requestBody = "cardNumber=4111111111111111&cvv=123&cardholderName=John Doe&expirationDate=12/24&rentingId=1";
 
         webTestClient.post()
-                .uri("/payment") // Make sure this path is allowed in your security config
+                .uri("/payment")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .bodyValue(requestBody)
                 .exchange()
-                .expectStatus().isOk() // Expect a 200 OK response
-                .expectBody(String.class).isEqualTo("rent-success"); // Expect the success view name
+                .expectStatus().isOk()
+                .expectBody(String.class).isEqualTo("rent-success");
 
         verify(paymentService, times(1)).addPayment(1L, 100.00, renting.getClient(), renting.getVehicle(), "4111111111111111", "123", "12/24", "John Doe");
     }

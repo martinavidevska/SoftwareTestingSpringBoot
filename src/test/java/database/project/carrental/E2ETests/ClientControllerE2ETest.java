@@ -20,13 +20,13 @@ public class ClientControllerE2ETest {
     @Test
     public void testGetClientInfo() {
         webTestClient.get().uri("/client/info")
-                .header("Authorization", "Bearer <valid_token>") // Assuming security is implemented
+                .header("Authorization", "Bearer <valid_token>")
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()
                 .consumeWith(response -> {
                     String body = new String(response.getResponseBody());
-                    assertTrue(body.contains("Client Information")); // Assuming a part of the view
+                    assertTrue(body.contains("Client Information"));
                 });
     }
 }
